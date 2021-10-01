@@ -72,8 +72,10 @@ class ValorantClient {
             }
         })
         if (resp.data.error) {
-            console.log('Error: ' + resp.data.error)
-            process.exit()
+            return Promise.reject({
+                error: true,
+                message: resp.data.error
+            })
         }
         let { uri } = resp.data.response.parameters
         this.access_token = uri.match(this.regexAccessToken)[1]
