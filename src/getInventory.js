@@ -6,5 +6,15 @@ module.exports = async detail => {
             'X-Riot-Entitlements-JWT': detail.entitlements_token
         }
     })
-    return resp.data
+    const gunsId = resp.data.Guns.map(e => e.SkinLevelID)
+    const guns = await Promise.all([
+        ...gunsId.map(async item => {
+            return axios.get(`https://valorant-api.com/v1/weapons/skinlevels/${item}`)
+        })
+    ])
+    return {
+        inventory: [
+            ...guns.map(e => e.data)
+        ]
+    }
 }
