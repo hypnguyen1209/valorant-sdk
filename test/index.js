@@ -2,7 +2,7 @@ const { getPlayerStore, getMatchHistory, ValorantClient, getInventory, getWallet
 const valorantClient = new ValorantClient()
 const { username, password } = require('../config.json')
 const main = async detail => {
-    let wallet = await getPlayerStore(detail)
+    let wallet = await getInventory(detail)
     console.log(JSON.stringify(wallet))
 }
 const errHandlers = async detail => {
